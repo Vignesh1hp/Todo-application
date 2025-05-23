@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const Header = () => {
+const Header = (props) => {
+  const { todos } = props;
+  const todosLength = todos.length;
+  const isTasksPlural = todosLength != 1;
   return (
     <header>
-      
+      <h1 className="text-gradient">
+        You have {todosLength} open {isTasksPlural ? "tasks" : "task"}
+      </h1>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
