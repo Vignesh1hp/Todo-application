@@ -2,18 +2,17 @@ import React from "react";
 import TodoCard from "./TodoCard";
 
 const TodoList = (props) => {
-  const { todos } = props;
-  const tab = "All";
+  const { todos,selectedTab } = props;
   const fileterTodosList =
-    tab === "All"
+    selectedTab === "All"
       ? todos
-      : tab === "Complete"
+      : selectedTab === "Completed"
       ? todos.filter((todo) => todo.complete)
       : todos.filter((todo) => !todo.complete);
   return (
     <>
-      {fileterTodosList.map((todo, index) => {
-        return <TodoCard key={index} todo={todo} />;
+      {fileterTodosList.map((todo, todoIndex) => {
+        return <TodoCard key={todoIndex} todoIndex={todoIndex} {...props} todo={todo} />;
       })}
     </>
   );

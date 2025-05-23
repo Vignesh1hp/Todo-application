@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Tabs = ({todos}) => {
+const Tabs = ({todos,selectedTab,setSelectedTab}) => {
   const tabs = ['All','Open','Completed'];
   return (
     <nav className='tab-container'>
@@ -12,12 +12,15 @@ const Tabs = ({todos}) => {
           todos.filter(todo=> !todo.complete).length:
           todos.filter(todo=> todo.complete).length;
           return(
-            <button key={index} className='tab-button'>
+            <button onClick={()=>{
+              setSelectedTab(tab)
+            }} key={index} className={'tab-button ' + (tab === selectedTab ? ' tab-selected': ' ')}>
               <h4>{tab}<span>({numOfTasks})</span></h4>
             </button>
           )
         })
       }
+      <hr />
     </nav>
   )
 }

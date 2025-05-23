@@ -13,17 +13,28 @@ function App() {
   //   { input: 'Say hi to gran gran', complete: true }
   // ]
 
-  const[todos, setTodos] = useState(['']); 
-
+  const[todos, setTodos] = useState([]); 
+  const [selectedTab,setSelectedTab] = useState('Open');
   const handleAddTodo = (newTodo) => {
     const newTodoList = [...todos,{input:newTodo,complete:false}]
+    setTodos(newTodoList)
+  }
+
+  // const handleCompleteTodo = (index) =>{
+
+  // }
+
+  const handleDeleteTodo = (index) =>{
+    let newTodoList = todos.filter((val,valIndex)=>{
+      return valIndex !== index
+    })
     setTodos(newTodoList)
   }
   return (
     <>
       <Header todos={todos}/>
-      <Tabs todos={todos}/>
-      <TodoList todos={todos}/>
+      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} todos={todos}/>
+      <TodoList handleDeleteTodo={handleDeleteTodo} selectedTab={selectedTab} todos={todos}/>
       <TodoInput handleAddTodo={handleAddTodo}/>
     </>
   )
