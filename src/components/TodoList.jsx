@@ -12,7 +12,7 @@ const TodoList = (props) => {
   return (
     <>
       {fileterTodosList.map((todo, todoIndex) => {
-        return <TodoCard key={todoIndex} todoIndex={todoIndex} {...props} todo={todo} />;
+        return <TodoCard key={todoIndex} todoIndex={todo.findIndex(val => val.input == todo.input)} {...props} todo={todo} />;
       })}
     </>
   );

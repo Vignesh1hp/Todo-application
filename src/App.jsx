@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Tabs from './components/Tabs'
@@ -18,6 +18,7 @@ function App() {
   const handleAddTodo = (newTodo) => {
     const newTodoList = [...todos,{input:newTodo,complete:false}]
     setTodos(newTodoList)
+    handleSaveData(newTodoList)
   }
 
   const handleCompleteTodo = (index) =>{
@@ -26,14 +27,26 @@ function App() {
       completedTodo['complete'] = true;
       newTodoList[index] = completedTodo;
       setTodos(newTodoList)
+      handleSaveData(newTodoList)
   }
 
   const handleDeleteTodo = (index) =>{
     let newTodoList = todos.filter((val,valIndex)=>{
       return valIndex !== index
     })
-    setTodos(newTodoList)
+    setTodos(newTodoList);
+    handleSaveData(newTodoList);
   }
+
+  const handleSaveData = (currTodos) =>{
+    localStorage.setItem('todo-app',JSON.stringify({todos:currTodos}))
+  }
+
+  useEffect(()=>{
+    if(!localStorage || !localStorage.getItem('todo-app')) {return}
+    let db = JSON.parse(localStorage.getItem('todo-app'));
+    setTodos(db.todos)
+  },[])
   return (
     <>
       <Header todos={todos}/>
